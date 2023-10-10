@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+  
+  <head>
+    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/n5ro/aframe-physics-system@v4.0.1/dist/aframe-physics-system.min.js"></script>
+
+    <script src="./diving.js"></script>
+    <script src="./fishes.js"></script>
+    <script src="./coins.js"></script>
+    <script src="./collision.js"></script>
+
+  </head>
+
+  <body>
+    <a-scene background="color:#3E7581">
+
+      <a-entity id="look" look-controls camera position="0 2 20"></a-entity>
+
+      <!--Asset Management-->
+      <a-assets timeout="10000">        
+        <a-asset-item
+          id="Scuba_diver"
+          src="./assets/scuba_driver/scene.gltf"
+        ></a-asset-item>
+
+        <a-asset-item
+          id="Island"
+          src="./assets/island/scene.gltf"        
+        ></a-asset-item>
+
+        <a-aset-item 
+          id="fish" 
+          src="./assets/fish/scene.gltf"
+        ></a-aset-item>
+        
+        
+      </a-assets>
+      
+      <a-sky
+      geometry="primitive: sphere;"
+      material="shader: gradient; bottomColor: #00009e; topColor:109 205 227;offset: 0.0001;"
+      radius="100"
+      theta-length="180"
+      side="double"
+      animation="property: rotation; to: 0 300 0; easing:linear; loop: true; dur: 500000"
+    ></a-sky>
+
+    <a-cylinder color="#00009e" radius="100" opacity="0.2"></a-cylinder>
+
+      <!-- Island  -->
+      <a-entity
+        id="Island"
+        gltf-model="#Island"
+        position="0 -15 -40"
+        scale='1 1 1'
+        animation="property: position; to: 0 0 100;easing:linear; loop: true; dur: 1500000"
+        island-rotation-reader
+        fishes
+        coins
+      >
+      </a-entity>
+
+      <a-entity
+      id="treasureCoins"
+      coins
+      static-body="shape:'sphere',sphereRadius:2"
+      game-play
+      >
+
+      <a-entity
+      id="fishes"
+      fishes
+      static-body="shape:'sphere',sphereRadius:2"
+      game-play
+      >
+      <!--Scuba Driver-->
+        <a-entity
+        gltf-model="#Scuba_diver"
+        scale="0.1 0.1 0.1"
+        position="-10 -5 15"
+        rotation="0 90 -20"
+        scuba-diver-controls
+        dynamic-body="mass:0"
+        game-play
+        >
+      
+        <!--Bubbles-->
+        <a-sphere
+        id="bubble1"
+        position="52.9829 119.97737 -49.38121"
+        radius="1"
+        color="#b2ebf2"
+        animation="property: position; to: 52.9829 300 -49.38121;easing:linear; loop: true; dur: 2000"
+      ></a-sphere>
+        
+        </a-entity>
+      
+    </a-scene>
+  </body>
+</html>
